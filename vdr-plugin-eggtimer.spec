@@ -2,7 +2,7 @@
 %define plugin	eggtimer
 %define name	vdr-plugin-%plugin
 %define version	0.9.5
-%define rel	7
+%define rel	8
 
 Summary:	VDR plugin: Eggtimer
 Name:		%name
@@ -13,8 +13,9 @@ License:	GPL
 URL:		http://vaasa.wi-bw.tfh-wildau.de/~pjuszack/digicam/index_en.html
 Source:		http://194.95.44.38/~pjuszack/digicam/download/vdr-%plugin-%version.tar.bz2
 Patch0:		vdr-eggtimer-0.9.4-fix-menu.h.patch
+Patch1:		eggtimer-0.9.5-i18n-1.6.patch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	vdr-devel >= 1.4.1-6
+BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 
 %description
@@ -29,6 +30,8 @@ recording ...
 %prep
 %setup -q -n %plugin-%version
 %patch0 -p1 -b .includes
+%patch1 -p1
+%vdr_plugin_prep
 
 %build
 %vdr_plugin_build
