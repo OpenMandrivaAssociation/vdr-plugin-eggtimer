@@ -2,7 +2,7 @@
 %define plugin	eggtimer
 %define name	vdr-plugin-%plugin
 %define version	0.9.5
-%define rel	10
+%define rel	11
 
 Summary:	VDR plugin: Eggtimer
 Name:		%name
