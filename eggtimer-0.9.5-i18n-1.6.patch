@@ -1,0 +1,2863 @@
+
+This is a semi-automatically created i18n adaptation patch and may contain
+errors (such as missing translations). This should only be used as a
+temporary measure until the upstream plugin maintainer fixes the plugin
+properly according to the instructions in i18n-to-gettext.pl.
+
+Created for Mandriva Linux packaging by Anssi Hannula <anssi@mandriva.org>.
+
+
+diff -p -up eggtimer-0.9.5/eggtimer.c.orig eggtimer-0.9.5/eggtimer.c
+--- eggtimer-0.9.5/eggtimer.c.orig	2006-09-28 13:37:40.000000000 +0300
++++ eggtimer-0.9.5/eggtimer.c	2009-03-21 10:41:08.000000000 +0200
+@@ -83,7 +83,7 @@ bool cPluginEggtimer::Initialize(void)
+ 
+ bool cPluginEggtimer::Start(void)
+ {
+-  RegisterI18n(Phrases);
++  
+   
+   // Start any background activities the plugin shall perform.
+   if (!templates.Load( AddDirectory( ConfigDirectory(), "eggtimer.conf" ))) {
+diff -p -up eggtimer-0.9.5/eggtimer.h.orig eggtimer-0.9.5/eggtimer.h
+--- eggtimer-0.9.5/eggtimer.h.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/eggtimer.h	2009-03-21 10:41:08.000000000 +0200
+@@ -5,7 +5,7 @@
+ #include <vdr/menu.h>
+ #include <vdr/config.h>
+ 
+-#include "i18n.h"
++
+ #include "background.h"
+ #include "eggtimer_data.h"
+ 
+diff -p -up eggtimer-0.9.5/i18n.c.orig eggtimer-0.9.5/i18n.c
+--- eggtimer-0.9.5/i18n.c.orig	2006-09-28 13:37:40.000000000 +0300
++++ eggtimer-0.9.5/i18n.c	2009-03-21 10:41:08.000000000 +0200
+@@ -1,564 +0,0 @@
+-#include <vdr/config.h>
+-
+-#include "i18n.h"
+-
+-const tI18nPhrase Phrases[] = {
+-  { "Eggtimer",	/*English*/
+-    "Eieruhr",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Eierwekker", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Programmateur", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Munakello", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Eggtimer for VDR", /*English*/
+-    "Eieruhr für VDR",  /*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Eierwekker voor VDR", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Programmateur pour VDR", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Munakello", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Eggtimer: time is over",	/*English*/
+-    "Eieruhr: Zeit ist abgelaufen",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Eierwekker: tijd is afgelopen", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Programmateur: le temps est écoulé", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Munakello: hälytys!", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Stop eggtimer",	/*English*/
+-    "Eieruhr ausschalten",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Stop eierwekker", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Arrêter le programmateur", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Pysäytä munakello", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Template",	/*English*/
+-    "Vorlage",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Voorgave", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Modèle", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Mallipohja", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "OSD message",	/*English*/
+-    "Nachricht im OSD",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "OSD bericht", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Message OSD", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "viesti", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Switch channel",	/*English*/
+-    "Umschalten",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Verwissel kanaal", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Changer de chaine", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "kanavanvaihto", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Set eggtimer",	/*English*/
+-    "Eieruhr stellen",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Stel eierwekker in", // TODO /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Valider programmateur", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Aseta munakellon hälytys", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Action",	/*English*/
+-    "Aktion",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Aktie", // TODO /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Action", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Hälytystoiminto", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Button$Cancel",	/*English*/
+-    "Abbrechen",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Afbreken", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Annuler", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Peruuta", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Timemode",	/*English*/
+-    "Zeit-Modus",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Tijd-modus", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Echelle de temps", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Aseta hälytys", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Seconds",	/*English*/
+-    "Sekunden",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Seconden", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Secondes", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "sekuntteina", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { " Seconds",	/*English*/
+-    " Sekunden",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Seconden", /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Secondes", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Sekunnit", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { " Date",	/*English*/
+-    " Datum",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Datum",   /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Date", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Päivä", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { " Time",	/*English*/
+-    " Zeit",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Tijd",    /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Heure", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Kello", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Date/Time",	/*English*/
+-    "Datum/Zeit",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Datum/TIJD",    /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Date/Heure", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "päivä/kello", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { "Minutes",	/*English*/
+-    "Minuten",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Minuten",  /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Minutes", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "minuutteina", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { " Minutes",	/*English*/
+-    " Minuten",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Minuten", /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Minutes", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Minuutit", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  { " Channel",	/*English*/
+-    " Kanal",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Kanaal",  /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Chaine", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Kanava", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-
+-  { "Eggtimer: could not switch channel",	/*English*/
+-    "Eieruhr: Konnte nicht umschalten",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Eierwekker: kon niet van kanaal wisselen", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Programmateur: impossible de changer de chaine", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Munakello: kanavanvaihto epäonnistui", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-  
+-  { " Command",	/*English*/
+-    " Befehl",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    " Commando", /*Nederlands*
+-    "", // TODO /*Português*/
+-    " Commande", /*Français*/
+-    "", // TODO /*Norsk*/
+-    " Komento", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-
+-  { "Eggtimer: command not found",	/*English*/
+-    "Eggtimer: Befehl nicht vorhanden",	/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Eierwekker: commando niet gevonden", // TODO /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Programmateur; commande introuvable", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Munakello: komentoa ei löydetä", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-
+-  { "Execute command",	/*English*/
+-    "Befehl ausführen",/*Deutsch*/
+-    "", // TODO /*Slovenski*/
+-    "", // TODO /*Italiano*/
+-    "Commando uitgevoerd", /*Nederlands*
+-    "", // TODO /*Português*/
+-    "Exécution d'une commande", /*Français*/
+-    "", // TODO /*Norsk*/
+-    "Suorita komento", /*suomi*/
+-    "", // TODO /*Polski*/
+-    "", // TODO /*Español*/
+-    "", // TODO /*Ellinika*/
+-    "", // TODO /*Svenska*/
+-    "", // TODO /*Romaneste*/
+-    "", // TODO /*Magyar*/
+-    "", // TODO /*Català*/
+-#if VDRVERSNUM > 10341
+-    "", // TODO /*Russian*/
+-    "", // TODO /*Hrvatski*/
+-    "", // TODO /*Eesti*/
+-    "", // TODO /*Dansk*/
+-    "", // TODO /*Eesky*/
+-#endif
+-  },
+-
+-  { NULL }
+-};
+diff -p -up eggtimer-0.9.5/i18n.h.orig eggtimer-0.9.5/i18n.h
+--- eggtimer-0.9.5/i18n.h.orig	2006-09-28 13:37:40.000000000 +0300
++++ eggtimer-0.9.5/i18n.h	2009-03-21 10:41:08.000000000 +0200
+@@ -1,43 +0,0 @@
+-/*
+- * i18n.c: A plugin for the Video Disk Recorder
+- *
+- * See the README file for copyright information and how to reach the author.
+- *   
+- *
+- * This code is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License
+- * as published by the Free Software Foundation; either version 2
+- * of the License, or (at your option) any later version.
+- *
+- * This code is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write to the Free Software
+- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+- * Or, point your browser to http://www.gnu.org/copyleft/gpl.html
+- * $Id: i18n.h,v 1.1.1.1 2006/01/27 11:47:43 peter Exp $
+- */
+-
+- 
+-/*
+-
+-File	: i18n.c
+-Autor	: Peter Juszack
+-
+-Description
+------------------------------------------------------------------
+-Internationalisation file for scheduler plugin
+-
+-*/
+-
+-#ifndef ___I18N_H
+-#define ___I18N_H
+-
+-#include <vdr/i18n.h>
+-
+-extern const tI18nPhrase Phrases[];
+-
+-#endif				//___I18N_H
+diff -p -up eggtimer-0.9.5/Makefile.orig eggtimer-0.9.5/Makefile
+--- eggtimer-0.9.5/Makefile.orig	2006-09-28 13:37:40.000000000 +0300
++++ eggtimer-0.9.5/Makefile	2009-03-21 10:41:08.000000000 +0200
+@@ -45,7 +45,7 @@ DEFINES += -D_GNU_SOURCE -DPLUGIN_NAME_I
+ 
+ ### The object files (add further files here):
+ 
+-OBJS = $(PLUGIN).o set_eggtimer.o i18n.o eggtimer_data.o background.o
++OBJS = $(PLUGIN).o set_eggtimer.o  eggtimer_data.o background.o
+ 
+ ### Implicit rules:
+ 
+@@ -61,9 +61,34 @@ $(DEPFILE): Makefile
+ 
+ -include $(DEPFILE)
+ 
++### Internationalization (I18N):
++
++PODIR     = po
++LOCALEDIR = $(VDRDIR)/locale
++I18Npo    = $(wildcard $(PODIR)/*.po)
++I18Nmsgs  = $(addprefix $(LOCALEDIR)/, $(addsuffix /LC_MESSAGES/vdr-$(PLUGIN).mo, $(notdir $(foreach file, $(I18Npo), $(basename $(file))))))
++I18Npot   = $(PODIR)/$(PLUGIN).pot
++
++%.mo: %.po
++	msgfmt -c -o $@ $<
++
++$(I18Npot): $(wildcard *.[ch] *.[ch]xx *.cc *.[ch]pp *.hh)
++	xgettext -C -cTRANSLATORS --no-wrap --no-location -k -ktr -ktrNOOP --msgid-bugs-address='<http://qa.mandriva.com/>' -o $@ $^
++
++%.po: $(I18Npot)
++	msgmerge -U --no-wrap --no-location --backup=none -q $@ $<
++	@touch $@
++
++$(I18Nmsgs): $(LOCALEDIR)/%/LC_MESSAGES/vdr-$(PLUGIN).mo: $(PODIR)/%.mo
++	@mkdir -p $(dir $@)
++	cp $< $@
++
++.PHONY: i18n
++i18n: $(I18Nmsgs)
++
+ ### Targets:
+ 
+-all: libvdr-$(PLUGIN).so
++all: libvdr-$(PLUGIN).so i18n
+ 
+ libvdr-$(PLUGIN).so: $(OBJS)
+ 	$(CXX) $(CXXFLAGS) -shared $(OBJS) -o $@
+@@ -78,4 +103,5 @@ dist: clean
+ 	@echo Distribution package created as $(PACKAGE).tgz
+ 
+ clean:
++	@-rm -f $(PODIR)/*.mo $(PODIR)/*.pot
+ 	@-rm -f $(OBJS) $(DEPFILE) *.so *.tgz core* *~
+diff -p -up eggtimer-0.9.5/po/ca_ES.po.orig eggtimer-0.9.5/po/ca_ES.po
+--- eggtimer-0.9.5/po/ca_ES.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/ca_ES.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr " Datum"   
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/cs_CZ.po.orig eggtimer-0.9.5/po/cs_CZ.po
+--- eggtimer-0.9.5/po/cs_CZ.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/cs_CZ.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr " Kanaal"  
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/da_DK.po.orig eggtimer-0.9.5/po/da_DK.po
+--- eggtimer-0.9.5/po/da_DK.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/da_DK.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr " Minuten" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/de_DE.po.orig eggtimer-0.9.5/po/de_DE.po
+--- eggtimer-0.9.5/po/de_DE.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/de_DE.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Eieruhr" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/eggtimer.pot.orig eggtimer-0.9.5/po/eggtimer.pot
+--- eggtimer-0.9.5/po/eggtimer.pot.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/eggtimer.pot	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,105 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr ""
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/el_GR.po.orig eggtimer-0.9.5/po/el_GR.po
+--- eggtimer-0.9.5/po/el_GR.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/el_GR.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-7\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Afbreken" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/es_ES.po.orig eggtimer-0.9.5/po/es_ES.po
+--- eggtimer-0.9.5/po/es_ES.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/es_ES.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Verwissel kanaal" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/et_EE.po.orig eggtimer-0.9.5/po/et_EE.po
+--- eggtimer-0.9.5/po/et_EE.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/et_EE.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-13\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Minuten"  
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/fi_FI.po.orig eggtimer-0.9.5/po/fi_FI.po
+--- eggtimer-0.9.5/po/fi_FI.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/fi_FI.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Voorgave" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/fr_FR.po.orig eggtimer-0.9.5/po/fr_FR.po
+--- eggtimer-0.9.5/po/fr_FR.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/fr_FR.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Eierwekker: tijd is afgelopen" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/hr_HR.po.orig eggtimer-0.9.5/po/hr_HR.po
+--- eggtimer-0.9.5/po/hr_HR.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/hr_HR.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Datum/TIJD"    
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/hu_HU.po.orig eggtimer-0.9.5/po/hu_HU.po
+--- eggtimer-0.9.5/po/hu_HU.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/hu_HU.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr " Seconden" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/nl_NL.po.orig eggtimer-0.9.5/po/nl_NL.po
+--- eggtimer-0.9.5/po/nl_NL.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/nl_NL.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Eierwekker" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/nn_NO.po.orig eggtimer-0.9.5/po/nn_NO.po
+--- eggtimer-0.9.5/po/nn_NO.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/nn_NO.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Stop eierwekker" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/pl_PL.po.orig eggtimer-0.9.5/po/pl_PL.po
+--- eggtimer-0.9.5/po/pl_PL.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/pl_PL.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "OSD bericht" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/pt_PT.po.orig eggtimer-0.9.5/po/pt_PT.po
+--- eggtimer-0.9.5/po/pt_PT.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/pt_PT.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Eierwekker voor VDR" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/ro_RO.po.orig eggtimer-0.9.5/po/ro_RO.po
+--- eggtimer-0.9.5/po/ro_RO.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/ro_RO.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Seconden" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/ru_RU.po.orig eggtimer-0.9.5/po/ru_RU.po
+--- eggtimer-0.9.5/po/ru_RU.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/ru_RU.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-5\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr " Tijd"    
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/sv_SE.po.orig eggtimer-0.9.5/po/sv_SE.po
+--- eggtimer-0.9.5/po/sv_SE.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/sv_SE.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Tijd-modus" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
+diff -p -up eggtimer-0.9.5/po/tr_TR.po.orig eggtimer-0.9.5/po/tr_TR.po
+--- eggtimer-0.9.5/po/tr_TR.po.orig	2009-03-21 10:41:08.000000000 +0200
++++ eggtimer-0.9.5/po/tr_TR.po	2009-03-21 10:41:08.000000000 +0200
+@@ -0,0 +1,104 @@
++# VDR eggtimer plugin language source file.
++# Copyright (C) YEAR THE VDR-eggtimer'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-eggtimer package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-eggtimer\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 20:45+0300\n"
++"PO-Revision-Date: 2008-04-22 20:45+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-9\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: background.c:112
++msgid "Eggtimer: could not switch channel"
++msgstr ""
++
++#: background.c:146
++msgid "Eggtimer: command not found"
++msgstr ""
++
++#: eggtimer_data.c:255
++msgid "Eggtimer"
++msgstr "Eierwekker: kon niet van kanaal wisselen" 
++
++#: eggtimer_data.c:256
++msgid "Eggtimer: time is over"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "Button$Cancel"
++msgstr ""
++
++#: set_eggtimer.c:10
++msgid "OK"
++msgstr ""
++
++#: set_eggtimer.c:15
++msgid "Set eggtimer"
++msgstr ""
++
++#: set_eggtimer.c:16
++msgid "OSD message"
++msgstr ""
++
++#: set_eggtimer.c:17
++msgid "Switch channel"
++msgstr ""
++
++#: set_eggtimer.c:18
++msgid "Execute command"
++msgstr ""
++
++#: set_eggtimer.c:20
++msgid "Minutes"
++msgstr ""
++
++#: set_eggtimer.c:21
++msgid "Seconds"
++msgstr ""
++
++#: set_eggtimer.c:22
++msgid "Date/Time"
++msgstr ""
++
++#: set_eggtimer.c:105
++msgid "Template"
++msgstr ""
++
++#: set_eggtimer.c:106
++msgid "Action"
++msgstr ""
++
++#: set_eggtimer.c:110
++msgid " Channel"
++msgstr ""
++
++#: set_eggtimer.c:113
++msgid " Command"
++msgstr ""
++
++#: set_eggtimer.c:118
++msgid "Timemode"
++msgstr ""
++
++#: set_eggtimer.c:122
++msgid " Date"
++msgstr ""
++
++#: set_eggtimer.c:123
++msgid " Time"
++msgstr ""
++
++#: set_eggtimer.c:126
++msgid " Minutes"
++msgstr ""
++
++#: set_eggtimer.c:129
++msgid " Seconds"
++msgstr ""
