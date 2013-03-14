@@ -2,7 +2,7 @@
 %define plugin	eggtimer
 %define name	vdr-plugin-%plugin
 %define version	0.9.5
-%define rel	13
+%define rel	14
 
 Summary:	VDR plugin: Eggtimer
 Name:		%name
@@ -39,12 +39,6 @@ recording ...
 %vdr_plugin_install
 
 install -D -m644 eggtimer.conf %{buildroot}%{vdr_plugin_cfgdir}/eggtimer.conf
-
-%post
-%vdr_plugin_post %plugin
-
-%postun
-%vdr_plugin_postun %plugin
 
 %files -f %plugin.vdr
 %defattr(-,root,root)
