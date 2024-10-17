@@ -10,7 +10,7 @@ Version:	%version
 Release:	%rel
 Group:		Video
 License:	GPL
-URL:		http://vaasa.wi-bw.tfh-wildau.de/~pjuszack/digicam/index_en.html
+URL:		https://vaasa.wi-bw.tfh-wildau.de/~pjuszack/digicam/index_en.html
 Source:		http://194.95.44.38/~pjuszack/digicam/download/vdr-%plugin-%version.tar.bz2
 Patch0:		vdr-eggtimer-0.9.4-fix-menu.h.patch
 Patch1:		eggtimer-0.9.5-i18n-1.6.patch
